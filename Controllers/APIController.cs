@@ -19,5 +19,8 @@ namespace Northwind.Controllers
         [HttpGet, Route("api/category/{CategoryId}/product")]
         // returns all products in a specific category
         public IEnumerable<Product> GetByCategory(int CategoryId) => _dataContext.Products.Where(p => p.CategoryId == CategoryId).OrderBy(p => p.ProductName);
+        [HttpGet, Route("api/category/{CategoryId}/product/discontinued/{discontinued}")]
+        // returns all products in a specific category where discontinued = true/false
+        public IEnumerable<Product> GetByCategoryDiscontinued(int CategoryId, bool discontinued) => _dataContext.Products.Where(p => p.CategoryId == CategoryId && p.Discontinued == discontinued).OrderBy(p => p.ProductName);
     }
 }
