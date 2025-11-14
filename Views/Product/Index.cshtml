@@ -37,9 +37,13 @@
     document.getElementById('product_rows').dataset['id'] = e.target.value;
     fetchProducts();
   });
+  document.getElementById('Discontinued').addEventListener("change", (e) => {
+    fetchProducts();
+  });
   async function fetchProducts() {
     const id = document.getElementById('product_rows').dataset['id'];
-    const { data: fetchedProducts } = await axios.get(`../../api/category/${id}/product/discontinued/false`);
+    const discontinued = document.getElementById('Discontinued').checked ? "" : "/discontinued/false";
+    const { data: fetchedProducts } = await axios.get(`../../api/category/${id}/product${discontinued}`);
     // console.log(fetchedProducts);
     let product_rows = "";
     fetchedProducts.map(product => {
