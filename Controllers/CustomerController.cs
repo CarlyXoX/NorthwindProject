@@ -67,6 +67,8 @@ public class CustomerController(DataContext db, UserManager<AppUser> usrMgr) : C
     }
     return View();
   }
+  [Authorize(Roles = "northwind-customer")]
+  public IActionResult Account() => View();
   private void AddErrorsFromResult(IdentityResult result)
   {
     foreach (IdentityError error in result.Errors)
