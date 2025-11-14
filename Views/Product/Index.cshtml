@@ -1,7 +1,22 @@
+@model IEnumerable<Category>
 <table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">Product</th>
+      <th scope="col">
+        <select class="form-select" id="CategoryId">
+          @foreach (Category c in Model)
+          {
+            if (c.CategoryId == ViewBag.id)
+            {
+              <option value="@c.CategoryId" selected>@c.CategoryName</option>
+            }
+            else
+            {
+              <option value="@c.CategoryId">@c.CategoryName</option>
+            }
+          }
+        </select>
+      </th>
       <th scope="col" class="text-end">Price ($)</th>
       <th scope="col" class="text-end">Stock</th>
     </tr>
