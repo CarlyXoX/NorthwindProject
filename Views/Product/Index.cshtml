@@ -29,6 +29,10 @@
   document.addEventListener("DOMContentLoaded", function () {
     fetchProducts();
   });
+  document.getElementById("CategoryId").addEventListener("change", (e) => {
+    document.getElementById('product_rows').dataset['id'] = e.target.value;
+    fetchProducts();
+  });
   async function fetchProducts() {
     const id = document.getElementById('product_rows').dataset['id'];
     const { data: fetchedProducts } = await axios.get(`../../api/category/${id}/product/discontinued/false`);
