@@ -1,5 +1,3 @@
-@model IEnumerable<Product>
-
 <table class="table table-hover">
   <thead>
     <tr>
@@ -8,15 +6,7 @@
       <th scope="col" class="text-end">Stock</th>
     </tr>
   </thead>
-  <tbody id="product_rows">
-    @foreach (Product p in Model)
-    {
-      <tr>
-        <td>@p.ProductName</td>
-        <td class="text-end">@string.Format("{0:c}", p.UnitPrice)</td>
-        <td class="text-end">@p.UnitsInStock</td>
-      </tr>
-    }
+  <tbody id="product_rows" data-id="@ViewBag.id">
   </tbody>
 </table>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -25,8 +15,10 @@
     fetchProducts();
   });
   async function fetchProducts() {
+    const id = document.getElementById('product_rows').dataset['id'];
+    alert(id);
     const { data: fetchedProducts } = await axios.get('../../api/product');
-    console.log(fetchedProducts);
+    // console.log(fetchedProducts);
     let product_rows = "";
     fetchedProducts.map(product => {
       product_rows +=
