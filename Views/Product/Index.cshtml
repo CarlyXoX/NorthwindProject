@@ -16,8 +16,7 @@
   });
   async function fetchProducts() {
     const id = document.getElementById('product_rows').dataset['id'];
-    alert(id);
-    const { data: fetchedProducts } = await axios.get('../../api/product');
+    const { data: fetchedProducts } = await axios.get(`../../api/category/${id}/product/discontinued/false`);
     // console.log(fetchedProducts);
     let product_rows = "";
     fetchedProducts.map(product => {
