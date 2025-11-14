@@ -8,7 +8,7 @@
       <th scope="col" class="text-end">Stock</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="product_rows">
     @foreach (Product p in Model)
     {
       <tr>
@@ -27,5 +27,15 @@
   async function fetchProducts() {
     const { data: fetchedProducts } = await axios.get('../../api/product');
     console.log(fetchedProducts);
+    let product_rows = "";
+    fetchedProducts.map(product => {
+      product_rows +=
+        `<tr>
+          <td>${product.productName}</td>
+          <td>${product.unitPrice}</td>
+          <td>${product.unitsInStock}</td>
+        </tr>`;
+    });
+    document.getElementById('product_rows').innerHTML = product_rows;
   }
 </script>
