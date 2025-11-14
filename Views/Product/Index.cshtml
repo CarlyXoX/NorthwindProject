@@ -4,7 +4,7 @@
   <thead>
     <tr>
       <th scope="col">Product</th>
-      <th scope="col" class="text-end">Price</th>
+      <th scope="col" class="text-end">Price ($)</th>
       <th scope="col" class="text-end">Stock</th>
     </tr>
   </thead>
@@ -32,8 +32,8 @@
       product_rows +=
         `<tr>
           <td>${product.productName}</td>
-          <td>${product.unitPrice}</td>
-          <td>${product.unitsInStock}</td>
+          <td class="text-end">${product.unitPrice.toFixed(2)}</td>
+          <td class="text-end">${product.unitsInStock}</td>
         </tr>`;
     });
     document.getElementById('product_rows').innerHTML = product_rows;
