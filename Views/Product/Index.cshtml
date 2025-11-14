@@ -3,19 +3,23 @@
   <thead>
     <tr>
       <th scope="col">
-        <select class="form-select" id="CategoryId">
-          @foreach (Category c in Model)
-          {
-            if (c.CategoryId == ViewBag.id)
+        <div class="input-group">
+          <select class="form-select" id="CategoryId">
+            @foreach (Category c in Model)
             {
-              <option value="@c.CategoryId" selected>@c.CategoryName</option>
+              if (c.CategoryId == ViewBag.id)
+              {
+                <option value="@c.CategoryId" selected>@c.CategoryName</option>
+              }
+              else
+              {
+                <option value="@c.CategoryId">@c.CategoryName</option>
+              }
             }
-            else
-            {
-              <option value="@c.CategoryId">@c.CategoryName</option>
-            }
-          }
-        </select>
+          </select>
+          <input class="form-check-input ms-2 mt-2" type="checkbox" id="Discontinued">
+          <label class="form-check-label ms-2 mt-1" for="Discontinued">Discontinued</label>
+        </div>
       </th>
       <th scope="col" class="text-end">Price ($)</th>
       <th scope="col" class="text-end">Stock</th>
