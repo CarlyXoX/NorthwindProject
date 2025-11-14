@@ -7,15 +7,25 @@
       <th scope="col" class="text-end">Price</th>
       <th scope="col" class="text-end">Stock</th>
     </tr>
-</thead>
-<tbody>
-  @foreach (Product p in Model)
-  {
-    <tr>
-      <td>@p.ProductName</td>
-      <td class="text-end">@string.Format("{0:c}", p.UnitPrice)</td>
-      <td class="text-end">@p.UnitsInStock</td>
-    </tr>
-  }
+  </thead>
+  <tbody>
+    @foreach (Product p in Model)
+    {
+      <tr>
+        <td>@p.ProductName</td>
+        <td class="text-end">@string.Format("{0:c}", p.UnitPrice)</td>
+        <td class="text-end">@p.UnitsInStock</td>
+      </tr>
+    }
   </tbody>
 </table>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    fetchProducts();
+  });
+  async function fetchProducts() {
+    const { data: fetchedProducts } = await axios.get('../../api/product');
+    console.log(fetchedProducts);
+  }
+</script>
