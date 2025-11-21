@@ -13,7 +13,8 @@ document.getElementById('product_rows').addEventListener("click", (e) => {
     p = e.target.parentElement;
     if (p.classList.contains('product')) {
         e.preventDefault()
-        console.log(p.dataset['id']);
+        // console.log(p.dataset['id']);
+        const cart = new bootstrap.Modal('#cartModal', {}).show();
     }
 });
 async function fetchProducts() {
