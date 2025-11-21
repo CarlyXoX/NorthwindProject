@@ -48,3 +48,14 @@ async function fetchProducts() {
     });
     document.getElementById('product_rows').innerHTML = product_rows;
 }
+document.getElementById('addToCart').addEventListener("click", (e) => {
+    // hide modal
+    const cart = bootstrap.Modal.getInstance(document.getElementById('cartModal')).hide();
+    // use axios post to add item to cart
+    item = {
+        "id": Number(document.getElementById('ProductId').innerHTML),
+        "email": document.getElementById('User').dataset['email'],
+        "qty": Number(document.getElementById('Quantity').value)
+    }
+    console.log(item);
+});
