@@ -14,11 +14,15 @@ document.getElementById('product_rows').addEventListener("click", (e) => {
     if (p.classList.contains('product')) {
         e.preventDefault()
         // console.log(p.dataset['id']);
-        document.getElementById('ProductId').innerHTML = p.dataset['id'];
-        document.getElementById('ProductName').innerHTML = p.dataset['name'];
-        document.getElementById('UnitPrice').innerHTML = Number(p.dataset['price']).toFixed(2);
-        display_total();
-        const cart = new bootstrap.Modal('#cartModal', {}).show();
+        if (document.getElementById('User').dataset['customer'].toLowerCase() == "true") {
+            document.getElementById('ProductId').innerHTML = p.dataset['id'];
+            document.getElementById('ProductName').innerHTML = p.dataset['name'];
+            document.getElementById('UnitPrice').innerHTML = Number(p.dataset['price']).toFixed(2);
+            display_total();
+            const cart = new bootstrap.Modal('#cartModal', {}).show();
+        } else {
+            alert("Only signed in customers can add items to the cart");
+        }
     }
 });
 const display_total = () => {
