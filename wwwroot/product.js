@@ -17,6 +17,14 @@ document.getElementById('product_rows').addEventListener("click", (e) => {
         const cart = new bootstrap.Modal('#cartModal', {}).show();
     }
 });
+// update total when cart quantity is changed
+document.getElementById('Quantity').addEventListener("change", (e) => {
+    // console.log(e.target.value);
+    const total = parseInt(e.target.value) * Number(document.getElementById('UnitPrice').innerHTML);
+    document.getElementById('Total').innerHTML = numberWithCommas(total.toFixed(2));
+});
+// function to display commas in number
+const numberWithCommas = x => x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 async function fetchProducts() {
     const id = document.getElementById('product_rows').dataset['id'];
     const discontinued = document.getElementById('Discontinued').checked ? "" : "/discontinued/false";
