@@ -25,5 +25,8 @@ namespace Northwind.Controllers
         [HttpPost, Route("api/addtocart")]
         // adds a row to the cartitem table
         public CartItem Post([FromBody] CartItemJSON cartItem) => _dataContext.AddToCart(cartItem);
+        [HttpGet, Route("api/category")]
+        // returns all categories
+        public IEnumerable<Category> GetCategory() => _dataContext.Categories.OrderBy(c => c.CategoryName);
     }
 }
