@@ -21,10 +21,16 @@ document.getElementById('product_rows').addEventListener("click", (e) => {
             display_total();
             const cart = new bootstrap.Modal('#cartModal', {}).show();
         } else {
-            alert("Only signed in customers can add items to the cart");
+            // alert("Only signed in customers can add items to the cart");
+            toast("Access Denied", "You must be signed in as a customer to access the cart.");
         }
     }
 });
+const toast = (header, message) => {
+    document.getElementById('toast_header').innerHTML = header;
+    document.getElementById('toast_body').innerHTML = message;
+    bootstrap.Toast.getOrCreateInstance(document.getElementById('liveToast')).show();
+}
 const display_total = () => {
     const total = parseInt(document.getElementById('Quantity').value) * Number(document.getElementById('UnitPrice').innerHTML);
     document.getElementById('Total').innerHTML = numberWithCommas(total.toFixed(2));
@@ -64,6 +70,7 @@ document.getElementById('addToCart').addEventListener("click", (e) => {
     postCartItem(item);
 });
 async function postCartItem(item) {
-    const data = await axios.post('../../api/addtocart', item)
-    console.log(data);
+    axios.post('../../api/addtocart', item).then(res => {
+        toast("Product Added", `${res.data.product.productName} successfully added to cart.`);
+    });
 }
