@@ -57,5 +57,9 @@ document.getElementById('addToCart').addEventListener("click", (e) => {
         "email": document.getElementById('User').dataset['email'],
         "qty": Number(document.getElementById('Quantity').value)
     }
-    console.log(item);
+    postCartItem(item);
 });
+async function postCartItem(item) {
+    const data = await axios.post('../../api/addtocart', item)
+    console.log(data);
+}
