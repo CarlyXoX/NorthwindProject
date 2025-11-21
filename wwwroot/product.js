@@ -18,7 +18,7 @@ async function fetchProducts() {
         const css = product.discontinued ? " class='discontinued'" : "";
         console.log(css);
         product_rows +=
-            `<tr${css}>
+            `<tr${css} data-id="${product.productId}">
         <td>${product.productName}</td>
         <td class="text-end">${product.unitPrice.toFixed(2)}</td>
         <td class="text-end">${product.unitsInStock}</td>
