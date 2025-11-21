@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Northwind.Controllers
 {
@@ -27,6 +28,6 @@ namespace Northwind.Controllers
         public CartItem Post([FromBody] CartItemJSON cartItem) => _dataContext.AddToCart(cartItem);
         [HttpGet, Route("api/category")]
         // returns all categories
-        public IEnumerable<Category> GetCategory() => _dataContext.Categories.OrderBy(c => c.CategoryName);
+        public IEnumerable<Category> GetCategory() => _dataContext.Categories.Include("Products").OrderBy(c => c.CategoryName);
     }
 }
