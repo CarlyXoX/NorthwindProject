@@ -9,7 +9,7 @@ public class DataContext : DbContext
   public DbSet<Discount> Discounts { get; set; }
   public DbSet<Customer> Customers { get; set; }
   public DbSet<CartItem> CartItems { get; set; }
-  
+
   public void AddCustomer(Customer customer)
   {
     Customers.Add(customer);
@@ -26,5 +26,18 @@ public class DataContext : DbContext
     customerToUpdate.Phone = customer.Phone;
     customerToUpdate.Fax = customer.Fax;
     SaveChanges();
+  }
+  public CartItem AddToCart(CartItemJSON cartItemJSON)
+  {
+    CartItem cartItem = new CartItem()
+    {
+      CustomerId = Customers.FirstOrDefault(c => c.Email == cartItemJSON.email).CustomerId,
+      ProductId = cartItemJSON.id,
+      Quantity = cartItemJSON.qty
+    };
+    CartItems.Add(cartItem);
+    SaveChanges();
+    cartItem.Product = Products.Find(cartItem.ProductId);
+    return cartItem;
   }
 }
