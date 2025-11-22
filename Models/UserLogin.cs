@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-
+//Login is already required
 public class UserLogin
 {
     [Required, UIHint("email")]
