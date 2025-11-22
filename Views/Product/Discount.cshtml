@@ -1,0 +1,9 @@
+@model IEnumerable<Discount>
+
+<ul class="list-group">
+    @foreach (Discount discount in Model)
+    {
+        <li class="list-group-item list-group-item-action" asp-controller="Product" asp-action="Index"
+                asp-route-id="@discount.DiscountId">@discount.Title - @discount.Description - @discount.EndTime.ToString("MM/dd/yyyy") - @discount.Code</li>
+    }
+</ul>
