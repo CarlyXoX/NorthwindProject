@@ -21,8 +21,21 @@
             </div>
             <i>Discount expires: @d.EndTime.ToString("MM/dd/yyyy")</i><br />
             <a href="#" data-code="@d.Code" data-title="@d.Title" data-product="@d.Product.ProductName" class="discount"><i class="far fa-hand-point-right"></i> Discount Code</a>
+
+            //Edit and Delete discount visble to employees for each discount
+            @if (User.IsInRole("northwind-employee"))
+            {
+                <a asp-action="EditDiscount" asp-route-id="@d.DiscountId">Edit</a>
+                <span> | </span>
+                <a asp-action="DeleteDiscount" asp-route-id="@d.DiscountId">Delete</a>
+            }
         </div>
     }
+    //Add discount button, only visible to employees
+    @if (User.IsInRole("northwind-employee"))
+      {
+          <a asp-action="AddDiscount">Add Discount</a>
+      }
 </div>
 <!-- toast -->
 <div class="toast-container position-fixed bottom-0 end-0 p-3">

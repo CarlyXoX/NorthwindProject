@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 public class Discount
 {
   public int DiscountId { get; set; }
-  public int Code { get; set; }
+  public string Code { get; set; }
   public DateTime StartTime { get; set; }
   public DateTime EndTime { get; set; }
   public int ProductId { get; set; }
