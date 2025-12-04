@@ -13,5 +13,5 @@ public class ProductController : Controller
     ViewBag.id = id;
     return View(_dataContext.Categories.OrderBy(c => c.CategoryName));
   }
-  public IActionResult Discount() => View(_dataContext.Discounts.Include("Product").Where(d => d.StartTime <= DateTime.Now && d.EndTime > DateTime.Now).OrderBy(d => d.EndTime));
+  public IActionResult Discount() => View(_dataContext.Discounts.Include(d => d.Product).Where(d => d.StartTime <= DateTime.Now && d.EndTime > DateTime.Now).OrderBy(d => d.EndTime).ToList());
 }
