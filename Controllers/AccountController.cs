@@ -8,15 +8,13 @@ public class AccountController(UserManager<AppUser> userMgr, SignInManager<AppUs
 {
     private readonly UserManager<AppUser> _userManager = userMgr;
     private readonly SignInManager<AppUser> _signInManager = signInMgr;
-    
-    [AllowAnonymous]
     public IActionResult Login(string returnUrl)
     {
         // return url remembers the user's original request
         ViewBag.returnUrl = returnUrl;
         return View();
     }
-    [HttpPost, AllowAnonymous, ValidateAntiForgeryToken]
+    [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> Login(UserLogin details, string returnUrl)
     {
         if (ModelState.IsValid)
