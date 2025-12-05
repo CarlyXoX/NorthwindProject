@@ -10,11 +10,17 @@ namespace Northwind.Controllers
         private readonly DataContext _dataContext = db;
 
         [Authorize(Roles = "northwind-employee")]
-        public ActionResult Index() =>
-            View(_dataContext.Discounts
-                .Include("Product")
+        public IActionResult Index()
+        {
+            var discounts = _dataContext.Discounts
+                .Include(d => d.Product)
                 .Where(d => d.StartTime <= DateTime.Now && d.EndTime > DateTime.Now)
-                .Take(3));    
+                .Take(3)
+                .ToList();
+
+            ViewBag.Products = _dataContext.Products.ToList();
+            return View(discounts);
+        }
     
     //Create Discount UI
         [Authorize(Roles = "northwind-employee")]
@@ -29,7 +35,7 @@ namespace Northwind.Controllers
         [Authorize(Roles = "northwind-employee")]
         public IActionResult AddDiscount(Discount model)
         {
-            model.Code = Guid.NewGuid().ToString("N")[..8].ToUpper();
+            model.Code = Random.Shared.Next(10000000, 99999999);
             _dataContext.Discounts.Add(model);
             _dataContext.SaveChanges();
             return RedirectToAction("Index");

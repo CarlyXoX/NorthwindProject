@@ -8,7 +8,7 @@
         We have the best prices and selection of high quality foods &amp; beverages on the planet! Check out our featured discounts below.
     </p>
     <hr class="my-4">
-    <p class="fs-5">For exceptional international quisuine, look no further.</p>
+    <p class="fs-5">For exceptional international cuisine, look no further.</p>
     <a class="btn btn-outline-primary btn-lg" href="#" role="button"><i class="bi bi-cart"></i> Order Now</a>
 </div>
 <div class="p-2 m-2 row row-cols-1 row-cols-lg-3 featured" id="discount-row">
@@ -33,10 +33,62 @@
     }
     //Add discount button, only visible to employees
     @if (User.IsInRole("northwind-employee"))
-      {
-          <a asp-action="AddDiscount">Add Discount</a>
-      }
-</div>
+    {
+        <div class="modal fade" id="addDiscountModal" tabindex="-1" aria-labelledby="addDiscountLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addDiscountLabel">Create New Discount</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <form asp-action="AddDiscount" method="post">
+
+                        <div class="modal-body">
+
+                            <div class="mb-3">
+                                <label class="form-label">Discount Title</label>
+                                <input name="Title" class="form-control" required />
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Description</label>
+                                <textarea name="Description" class="form-control" rows="3" required></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Product</label>
+                                <select name="ProductId" class="form-select" required>
+                                    @foreach (var p in ViewBag.Products)
+                                    {
+                                        <option value="@p.ProductId">@p.ProductName</option>
+                                    }
+                                </select>
+                            </div>
+
+
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">End Date</label>
+                                <input type="date" name="EndTime" class="form-control" required />
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-success">Create Discount</button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    }
+    </div>
 <!-- toast -->
 <div class="toast-container position-fixed bottom-0 end-0 p-3">
   <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
