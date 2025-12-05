@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
@@ -14,4 +16,33 @@ public class ProductController : Controller
     return View(_dataContext.Categories.OrderBy(c => c.CategoryName));
   }
   public IActionResult Discount() => View(_dataContext.Discounts.Include(d => d.Product).Where(d => d.StartTime <= DateTime.Now && d.EndTime > DateTime.Now).OrderBy(d => d.EndTime).ToList());
+
+  [Authorize(Roles = "northwind-employee")]
+  public IActionResult AddDiscount(int id)
+  {
+    ViewBag.DiscountId = id;
+    return View(new Discount());
+  }
+
+  [HttpPost]
+  [ValidateAntiForgeryToken]
+  [Authorize(Roles = "northwind-employee")]
+  public IActionResult AddDiscount(int id, Discount discount)
+  {
+    discount.DiscountId = id;
+    if (ModelState.IsValid)
+    {
+      _dataContext.AddDiscount(discount);
+      return RedirectToAction("DiscountDetail", new { id = id });
+    }
+    @ViewBag.DiscountId = id;
+    return View();
+  }
+
+  [Authorize(Roles = "northwind-employee")]
+  public IActionResult DeleteDiscount(int id)
+  {
+    _dataContext.DeleteDiscount(_dataContext.Discounts.FirstOrDefault(b => b.DiscountId == id));
+    return RedirectToAction("Index");
+  }
 }

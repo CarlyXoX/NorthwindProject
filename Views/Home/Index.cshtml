@@ -9,7 +9,7 @@
     discounts below.
   </p>
   <hr class="my-4">
-  <p class="fs-5">For exceptional international quisuine, look no further.</p>
+  <p class="fs-5">For exceptional international cuisine, look no further.</p>
   <a class="btn btn-outline-primary btn-lg" href="#" role="button"><i class="bi bi-cart"></i> Order Now</a>
 </div>
 <div class="p-2 m-2 row row-cols-1 row-cols-lg-3 featured" id="discount-row">
@@ -23,22 +23,8 @@
       <i>Discount expires: @d.EndTime.ToString("MM/dd/yyyy")</i><br />
       <a href="#" data-code="@d.Code" data-title="@d.Title" data-product="@d.Product.ProductName" class="discount"><i
           class="far fa-hand-point-right"></i> Discount Code</a>
-
-      <!-- Edit and Delete discount visble to employees for each discount --> 
-      @if (User.IsInRole("northwind-employee"))
-      {
-        <a asp-action="EditDiscount" asp-route-id="@d.DiscountId">Edit</a>
-        <span> | </span>
-        <a asp-action="DeleteDiscount" asp-route-id="@d.DiscountId">Delete</a>
-      }
     </div>
   }
-  <!-- Add discount button, only visible to employees -->
-  @if (User.IsInRole("northwind-employee"))
-  {
-    <a asp-action="AddDiscount">Add Discount</a>
-  }
-</div>
 <!-- toast -->
 <div class="toast-container position-fixed bottom-0 end-0 p-3">
   <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">

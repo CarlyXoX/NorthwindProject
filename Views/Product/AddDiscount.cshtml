@@ -1,0 +1,23 @@
+@model Discount
+
+<div class="bg-primary m-1 p-1">
+    <h4>Add Discount</h4>
+</div>
+<form method="post" asp-action="AddDiscount">
+    <div asp-validation-summary="All"></div>
+    <label asp-for="@Model.ProductId">Select Product</label>
+    <select asp-for="@Model.ProductId" asp-items="ViewBag.ProductList">
+        <option value="">-- Select Product --</option>
+    </select><br />
+    <label asp-for="@Model.Title">Enter Title</label>
+    <input asp-for="@Model.Title" placeholder="Discount Title" /><br />
+    <label asp-for="@Model.DiscountPercent">Enter Discount Percentage</label>
+    <input asp-for="@Model.DiscountPercent" type="number" step="0.01" /><br />
+    <label asp-for="@Model.Description">Enter Description</label>
+    <textarea asp-for="@Model.Description" placeholder="Discount Description"></textarea><br />
+    <label asp-for="@Model.StartTime">Start Time</label>
+    <input asp-for="@Model.StartTime" type="date" /><br />
+    <label asp-for="@Model.EndTime">End Time</label>
+    <input asp-for="@Model.EndTime" type="date" /><br />
+    <button type="submit">Create</button>
+</form>
