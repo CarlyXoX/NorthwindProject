@@ -18,7 +18,7 @@ namespace Northwind.Controllers
                 .Take(3)
                 .ToList();
 
-            //ViewBag.Products = _dataContext.Products.ToList(); --Uncomment this line if using bootstrap modal UI on homepage
+            ViewBag.Products = _dataContext.Products.ToList(); //--Uncomment this line if using bootstrap modal UI on homepage
             return View(discounts);
         }
     
@@ -46,6 +46,7 @@ namespace Northwind.Controllers
         public IActionResult EditDiscount(int id)
         {
             var d = _dataContext.Discounts.Find(id);
+            ViewBag.Products = _dataContext.Products.ToList();
             return View(d);
         }
 
