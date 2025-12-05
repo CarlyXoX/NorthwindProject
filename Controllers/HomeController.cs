@@ -18,7 +18,7 @@ namespace Northwind.Controllers
                 .Take(3)
                 .ToList();
 
-            ViewBag.Products = _dataContext.Products.ToList();
+            //ViewBag.Products = _dataContext.Products.ToList(); --Uncomment this line if using bootstrap modal UI on homepage
             return View(discounts);
         }
     
