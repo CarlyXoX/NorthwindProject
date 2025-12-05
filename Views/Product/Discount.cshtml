@@ -4,6 +4,16 @@
     @foreach (Discount discount in Model)
     {
         <li class="list-group-item list-group-item-action" asp-controller="Product" asp-action="Index"
-                asp-route-id="@discount.DiscountId">@discount.Title - @discount.Description - @discount.EndTime.ToString("MM/dd/yyyy") - @discount.Code</li>
+            asp-route-id="@discount.DiscountId">@discount.Title - @discount.Description -
+            @discount.EndTime.ToString("MM/dd/yyyy") - @discount.Code
+
+            <!-- Edit and Delete discount visble to employees for each discount -->
+            @if (User.IsInRole("northwind-employee"))
+            { 
+                <span> - </span><a asp-action="EditDiscount" asp-route-id="@discount.DiscountId">Edit</a>
+                <span> | </span>
+                <a asp-action="DeleteDiscount" asp-route-id="@discount.DiscountId">Delete</a>
+            }
+        </li>
     }
 </ul>
