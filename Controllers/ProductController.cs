@@ -21,6 +21,7 @@ public class ProductController : Controller
   public IActionResult AddDiscount(int id)
   {
     ViewBag.DiscountId = id;
+    ViewBag.Product = new SelectList(_dataContext.Products.OrderBy(p => p.ProductName), "ProductId", "ProductName");
     return View(new Discount());
   }
 
