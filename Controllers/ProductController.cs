@@ -49,6 +49,32 @@ public class ProductController : Controller
   public IActionResult DeleteDiscount(int id)
   {
     _dataContext.DeleteDiscount(_dataContext.Discounts.FirstOrDefault(b => b.DiscountId == id));
-    return RedirectToAction("Index");
+    return RedirectToAction("Discount");
+  }
+
+  [Authorize(Roles = "northwind-employee")]
+  public IActionResult EditDiscount(int id)
+  {
+    var discount = _dataContext.Discounts.FirstOrDefault(d => d.DiscountId == id);
+    if (discount == null)
+    {
+      return NotFound();
+    }
+    ViewBag.Product = new SelectList(_dataContext.Products.OrderBy(p => p.ProductName), "ProductId", "ProductName", discount.ProductId);
+    return View(discount);
+  }
+
+  [HttpPost]
+  [ValidateAntiForgeryToken]
+  [Authorize(Roles = "northwind-employee")]
+  public IActionResult EditDiscount(Discount discount)
+  {
+    if (ModelState.IsValid)
+    {
+      _dataContext.EditDiscount(discount);
+      return RedirectToAction("Discount");
+    }
+    ViewBag.Product = new SelectList(_dataContext.Products.OrderBy(p => p.ProductName), "ProductId", "ProductName", discount.ProductId);
+    return View(discount);
   }
 }

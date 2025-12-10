@@ -1,0 +1,27 @@
+@model Discount
+
+<div class="bg-primary m-1 p-1">
+    <h4>Edit Discount</h4>
+</div>
+<form method="post" asp-action="EditDiscount">
+    <input type="hidden" asp-for="DiscountId" />
+    <div asp-validation-summary="All"></div>
+    <label asp-for="@Model.ProductId">Select Product</label>
+    <select asp-for="@Model.ProductId" asp-items="ViewBag.Product">
+        <option value="">-- Select Product --</option>
+    </select><br />
+    <label asp-for="@Model.Title">Enter Title</label>
+    <input asp-for="@Model.Title" placeholder="Discount Title" /><br />
+    <label asp-for="@Model.DiscountPercent">Enter Discount Percentage</label>
+    <input asp-for="@Model.DiscountPercent" type="number" step="0.01" /><br />
+    <label asp-for="@Model.Description">Enter Description</label>
+    <textarea asp-for="@Model.Description" placeholder="Discount Description"></textarea><br />
+    <label asp-for="@Model.StartTime">Start Time</label>
+    <input asp-for="@Model.StartTime" type="date" min="2020-01-01" max="2030-12-31" /><br />
+    <label asp-for="@Model.EndTime">End Time</label>
+    <input asp-for="@Model.EndTime" type="date" min="2020-01-01" max="2030-12-31" /><br />
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a asp-action="Discount" class="btn btn-secondary">Cancel</a>
+</form>
+
+<hr />
