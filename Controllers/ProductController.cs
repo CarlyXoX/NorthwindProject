@@ -33,10 +33,15 @@ public class ProductController : Controller
     discount.DiscountId = id;
     if (ModelState.IsValid)
     {
+      // Generate random 4-digit code
+      Random random = new Random();
+      discount.Code = random.Next(1000, 10000);
+      
       _dataContext.AddDiscount(discount);
-      return RedirectToAction("DiscountDetail", new { id = id });
+      return RedirectToAction("Discount", new { id = id });
     }
     @ViewBag.DiscountId = id;
+    @ViewBag.Product = new SelectList(_dataContext.Products.OrderBy(p => p.ProductName), "ProductId", "ProductName");
     return View();
   }
 
